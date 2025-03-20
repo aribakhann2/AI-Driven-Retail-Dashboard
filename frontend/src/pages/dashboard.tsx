@@ -2,8 +2,6 @@ import { Navbar } from "../layout/Navbar";
 import { SalesChart } from "../components/SalesChart";
 import { ClientAnalysis } from "../components/ClientAnalysis";
 import { EarningsOverview } from "../components/EarningsOverview";
-import { InventoryReports } from "../components/InventoryReports";
-import { PredictiveAnalytics } from "../components/PredictiveAnalytics";
 import { InventoryOverview } from "../components/InventoryOverview";
 import { InventoryLevel } from "@/components/InventoryLevel";
 import StockOut from "@/components/StockOut";
@@ -59,3 +57,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+

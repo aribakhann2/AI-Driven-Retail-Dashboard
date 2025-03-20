@@ -20,13 +20,14 @@ import { Sheet, SheetContent, SheetTrigger } from '../components/ui/sheet';
 import { useTheme } from '../providers/theme-provider';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
-  { icon: ChartBar, label: 'Forecasts', href: '/statistics' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/home' },
+  { icon: ChartBar, label: 'Forecasts', href: '/forecasts' },
+  { icon: Store, label: 'Connect Database', href: '/connect' },
   { icon: ClipboardList, label: 'Reports', href: '/reports' },
  // { icon: Users, label: 'Team', href: '/team' },
  // { icon: Store, label: 'My Store', href: '/store' },
   { icon: Bell, label: 'Notifications', href: '/notifications' },
-  { icon: Settings, label: 'Settings', href: '/settings' },
+
 ];
 
 export function Sidebar() {
