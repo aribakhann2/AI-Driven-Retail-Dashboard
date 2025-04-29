@@ -19,9 +19,6 @@ export interface SalesData {
   export interface InventoryData {
     productName: string;
     quantity: number;
-    stockoutRate: number;
-    turnoverRate: number;
-    leadTime: number;
   }
   
   export interface InventoryCosts {

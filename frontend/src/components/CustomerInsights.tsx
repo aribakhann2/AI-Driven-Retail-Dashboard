@@ -11,34 +11,41 @@ import {
   BarChart,
   Bar
 } from 'recharts';
-import type { CustomerMetrics } from '../types/dashboard';
 
-const customerData: CustomerMetrics = {
-  conversionRate: 65,
-  acquisitionCost: 25,
-  platformEngagement: [
-    { platform: 'Platform A', engagement: 15, month: 'August' },
-    { platform: 'Platform B', engagement: 20, month: 'August' },
-    { platform: 'Platform C', engagement: 12, month: 'August' },
-    { platform: 'Platform D', engagement: 25, month: 'August' },
-    { platform: 'Platform A', engagement: 18, month: 'September' },
-    { platform: 'Platform B', engagement: 22, month: 'September' },
-    { platform: 'Platform C', engagement: 15, month: 'September' },
-    { platform: 'Platform D', engagement: 28, month: 'September' }
-  ]
-};
+interface SocialEngagementData {
+  platform: string;
+  total_engagement_score: string;
+  scaled_engagement_score: string;
+}
+
+interface LeadBreakdownData {
+  lead: number;
+  qualified: number;
+  converted: number;
+}
+
+interface CustomerInsightsProps {
+  socialEngagement?: SocialEngagementData[];
+  leadBreakdown?: LeadBreakdownData[];
+}
 
 const COLORS = ['#1a5654', '#abff91', '#5cd95b'];
 
-const conversionData = [
-  { name: 'Leads', value: 75 },
-  { name: 'Qualified', value: 50 },
-  { name: 'Converted', value: 25 }
-];
+export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: CustomerInsightsProps) {
+  const conversionData = [
+    { name: 'Leads', value: leadBreakdown[0]?.lead ?? 0 },
+    { name: 'Qualified', value: leadBreakdown[0]?.qualified ?? 0 },
+    { name: 'Converted', value: leadBreakdown[0]?.converted ?? 0 }
+  ];
 
-export function CustomerInsights() {
+  const platformEngagementData = socialEngagement.map((platform) => ({
+    platform: platform.platform,
+    engagement: parseInt(platform.total_engagement_score || '0')
+  }));
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
+      {/* Lead Conversion Funnel */}
       <Card>
         <CardHeader>
           <CardTitle>Lead Conversion Funnel</CardTitle>
@@ -63,7 +70,7 @@ export function CustomerInsights() {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
-            <div className="flex justify-center gap-4 text-sm">
+            <div className="flex justify-center gap-4 text-sm mt-2">
               {conversionData.map((entry, index) => (
                 <div key={entry.name} className="flex items-center gap-2">
                   <div
@@ -78,6 +85,7 @@ export function CustomerInsights() {
         </CardContent>
       </Card>
 
+      {/* Social Media Engagement */}
       <Card>
         <CardHeader>
           <CardTitle>Social Media Engagement</CardTitle>
@@ -86,7 +94,7 @@ export function CustomerInsights() {
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={customerData.platformEngagement}
+                data={platformEngagementData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -99,8 +107,6 @@ export function CustomerInsights() {
           </div>
         </CardContent>
       </Card>
-
-      
     </div>
   );
 }

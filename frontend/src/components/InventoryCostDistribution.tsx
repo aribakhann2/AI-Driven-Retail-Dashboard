@@ -6,21 +6,21 @@ import {
   ResponsiveContainer,
   Tooltip
 } from 'recharts';
-import type {InventoryCosts } from '@/types/dashboard';
-
-
-const inventoryCosts: InventoryCosts = {
-  holdingCosts: 5000,
-  orderingCosts: 3000,
-  shortageCosts: 1000
-};
 
 const COLORS = ['#1a5654', '#abff91', '#5cd95b'];
 
-export default function InventoryCostDistribution(){
-    return(
-        <div>
-             <Card className="sm:col-span-2">
+export default function InventoryCostDistribution({
+  data
+}: {
+  data: {
+    holdingCosts: number;
+    orderingCosts: number;
+    shortageCosts: number;
+  };
+}) {
+  return (
+    <div>
+      <Card className="sm:col-span-2">
         <CardHeader>
           <CardTitle>Inventory Costs Distribution</CardTitle>
         </CardHeader>
@@ -30,9 +30,9 @@ export default function InventoryCostDistribution(){
               <PieChart>
                 <Pie
                   data={[
-                    { name: 'Holding Costs', value: inventoryCosts.holdingCosts },
-                    { name: 'Ordering Costs', value: inventoryCosts.orderingCosts },
-                    { name: 'Shortage Costs', value: inventoryCosts.shortageCosts }
+                    { name: 'Holding Costs', value: data.holdingCosts },
+                    { name: 'Ordering Costs', value: data.orderingCosts },
+                    { name: 'Shortage Costs', value: data.shortageCosts }
                   ]}
                   cx="50%"
                   cy="50%"
@@ -65,6 +65,6 @@ export default function InventoryCostDistribution(){
           </div>
         </CardContent>
       </Card>
-        </div>
-    )
+    </div>
+  );
 }

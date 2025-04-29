@@ -4,23 +4,49 @@ import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
+import axios from 'axios';
 
-const overviewData = {
-  totalStock: 650,
-  lowStockItems: 12,
-  outOfStockItems: 5,
-};
+interface InventoryData {
+  total_products: number;
+  low_stock: number;
+  out_of_stock: number;
+}
 
-export function InventoryOverview() {
+interface InventoryOverviewProps {
+  data?: InventoryData[];
+}
+
+export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const [productName, setProductName] = useState('');
   const [stockLevel, setStockLevel] = useState('');
 
   const handleUpdateInventory = () => {
-    setIsDialogOpen(false);
-    setIsSuccessDialogOpen(true);
+    if (!productName || !stockLevel) return;
+
+    axios.post('http://localhost:5000/api/db/update-stock', {
+      productName,
+      newQuantity: Number(stockLevel),
+    })
+      .then(() => {
+        setIsDialogOpen(false);
+        setIsSuccessDialogOpen(true);
+        setStockLevel('');
+        setProductName('');
+      })
+      .catch(error => {
+        console.error('Error updating inventory:', error);
+        setIsDialogOpen(false);
+        setIsErrorDialogOpen(true);
+      });
   };
+
+  const inventoryData = data[0] || {};
+  const totalProducts = inventoryData?.total_products ?? 0;
+  const lowStock = inventoryData?.low_stock ?? 0;
+  const outOfStock = inventoryData?.out_of_stock ?? 0;
 
   return (
     <Card>
@@ -31,27 +57,20 @@ export function InventoryOverview() {
           Update Inventory
         </Button>
       </CardHeader>
+
       <CardContent>
         <div className="grid gap-4 md:grid-cols-3">
           <div>
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">Total Stock Items</p>
-              <p className="text-2xl font-bold text-primary">{overviewData.totalStock}</p>
-            </div>
+            <p className="text-sm font-medium text-muted-foreground">Total Stock Items</p>
+            <p className="text-2xl font-bold text-primary">{totalProducts}</p>
           </div>
-
           <div>
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">Low Stock Items</p>
-              <p className="text-2xl font-bold text-yellow-500">{overviewData.lowStockItems}</p>
-            </div>
+            <p className="text-sm font-medium text-muted-foreground">Low Stock Items</p>
+            <p className="text-2xl font-bold text-yellow-500">{lowStock}</p>
           </div>
-
           <div>
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">Out of Stock</p>
-              <p className="text-2xl font-bold text-red-500">{overviewData.outOfStockItems}</p>
-            </div>
+            <p className="text-sm font-medium text-muted-foreground">Out of Stock</p>
+            <p className="text-2xl font-bold text-red-500">{outOfStock}</p>
           </div>
         </div>
       </CardContent>
@@ -62,17 +81,21 @@ export function InventoryOverview() {
           <DialogHeader>
             <DialogTitle>Update Inventory</DialogTitle>
           </DialogHeader>
+
           <Input
             placeholder="Product Name"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
+            className="mb-2"
           />
+
           <Input
-            placeholder="Stock Level"
+            placeholder="New Stock Level"
             type="number"
             value={stockLevel}
             onChange={(e) => setStockLevel(e.target.value)}
           />
+
           <Button onClick={handleUpdateInventory} className="w-full mt-2">
             Update
           </Button>
@@ -85,12 +108,26 @@ export function InventoryOverview() {
           <DialogHeader>
             <DialogTitle>Inventory Updated</DialogTitle>
           </DialogHeader>
-          <p className="text-center text-gray-600">The inventory has been successfully updated!</p>
+          <p className="text-center text-green-600">The inventory has been successfully updated!</p>
           <Button className="w-full" onClick={() => setIsSuccessDialogOpen(false)}>
             OK
           </Button>
         </DialogContent>
       </Dialog>
+
+      {/* Error Dialog */}
+      <Dialog open={isErrorDialogOpen} onOpenChange={setIsErrorDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Update Failed</DialogTitle>
+          </DialogHeader>
+          <p className="text-center text-red-600">There was an error updating the inventory. Please try again.</p>
+          <Button className="w-full" onClick={() => setIsErrorDialogOpen(false)}>
+            OK
+          </Button>
+        </DialogContent>
+      </Dialog>
+
     </Card>
   );
 }

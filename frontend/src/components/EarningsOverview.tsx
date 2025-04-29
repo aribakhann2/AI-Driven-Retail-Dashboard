@@ -1,15 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-//import { Button } from '@/components/ui/button';
-//import { ChevronDown } from 'lucide-react';
-import type { EarningsData } from '../types/dashboard';
 
-const data: EarningsData = {
-  totalEarnings: 569548.49,
-  fashionEarnings: 277943.50,
-  beautyEarnings: 291604.99
-};
+interface EarningsOverviewProps {
+  totalEarnings?: number;
+  topRevenueProducts?: { product_name: string; revenue_generated: number }[];
+}
 
-export function EarningsOverview() {
+export function EarningsOverview({
+  totalEarnings,
+  topRevenueProducts = []
+}: EarningsOverviewProps) {
+  const top1 = topRevenueProducts[0];
+  const top2 = topRevenueProducts[1];
+
   return (
     <Card className='h-[100%]'>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -21,28 +23,33 @@ export function EarningsOverview() {
             <div className="space-y-1">
               <p className="text-sm font-medium text-muted-foreground">Total Earnings</p>
               <p className="text-2xl font-bold">
-                ${data.totalEarnings.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                ${totalEarnings?.toLocaleString('en-US', { minimumFractionDigits: 2 }) ?? 'N/A'}
               </p>
             </div>
           </div>
 
-          <div>
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">Fashion Items</p>
-              <p className="text-xl font-bold">
-                ${data.fashionEarnings.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-              </p>
+          {top1 && (
+            <div>
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-muted-foreground">{top1.product_name}</p>
+              
+                <p className="text-xl font-bold">
+                  ${Number(top1.revenue_generated).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">Beauty Products</p>
-              <p className="text-xl font-bold">
-                ${data.beautyEarnings.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-              </p>
+          {top2 && (
+            <div>
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-muted-foreground">{top2.product_name}</p>
+                <p className="text-xl font-bold">
+                  ${Number(top2.revenue_generated).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </CardContent>
     </Card>

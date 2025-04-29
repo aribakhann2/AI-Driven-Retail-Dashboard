@@ -1,20 +1,51 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import type { SalesData } from '../types/dashboard';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from './ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
-const data: SalesData[] = [
-  { week: 'Week 1', 'Clothing and Accessories': 18, 'Cosmetics and Skincare': 12, 'Others': 0 },
-  { week: 'Week 2', 'Clothing and Accessories': 30, 'Cosmetics and Skincare': 15, 'Others': 8 },
-  { week: 'Week 3', 'Clothing and Accessories': 38, 'Cosmetics and Skincare': 25, 'Others': 20 },
-  { week: 'Week 4', 'Clothing and Accessories': 30, 'Cosmetics and Skincare': 15, 'Others': 40 },
-];
+// Type definition for a single weekly sales record
+interface WeeklySalesData {
+  year: number;
+  week_number: number;
+  total_sales_amount: string;
+}
 
-export function SalesChart() {
+// Props for the SalesChart component
+interface SalesChartProps {
+  weeklySalesLast4Weeks?: WeeklySalesData[]; // optional for safety
+}
+
+export function SalesChart({ weeklySalesLast4Weeks = [] }: SalesChartProps) {
+  // Safely transform backend data
+  const transformedData = weeklySalesLast4Weeks.map((entry, index) => ({
+    week: `Week ${index + 1}`,
+    sales: parseFloat(entry?.total_sales_amount ?? '0'),
+  }));
+
+  const hasData = transformedData.length > 0;
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Bestselling Product</CardTitle>
+        <CardTitle>Weekly Sales (Last 4 Weeks)</CardTitle>
         <Select defaultValue="this-month">
           <SelectTrigger className="w-36">
             <SelectValue />
@@ -28,18 +59,21 @@ export function SalesChart() {
       </CardHeader>
       <CardContent>
         <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="week" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="Clothing and Accessories" stroke="#abff91" />
-              <Line type="monotone" dataKey="Cosmetics and Skincare" stroke="#1a5654" />
-              <Line type="monotone" dataKey="Others" stroke="#5cd95b" />
-            </LineChart>
-          </ResponsiveContainer>
+          {hasData ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={transformedData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="week" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="sales" stroke="#38bdf8" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="text-center text-muted-foreground mt-20">
+              No sales data available for the last 4 weeks.
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

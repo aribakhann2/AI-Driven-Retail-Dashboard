@@ -8,36 +8,69 @@ import {
   ResponsiveContainer,
   Tooltip
 } from 'recharts';
-import type { InventoryData} from '@/types/dashboard';
 
-const inventoryLevels: InventoryData[] = [
-  { productName: 'Product A', quantity: 100, stockoutRate: 25, turnoverRate: 4.0, leadTime: 7 },
-  { productName: 'Product B', quantity: 150, stockoutRate: 65, turnoverRate: 3.5, leadTime: 5 },
-  { productName: 'Product C', quantity: 120, stockoutRate: 55, turnoverRate: 4.2, leadTime: 8 },
-  { productName: 'Product D', quantity: 80, stockoutRate: 60, turnoverRate: 3.8, leadTime: 5 },
-  { productName: 'Product E', quantity: 200, stockoutRate: 45, turnoverRate: 4.5, leadTime: 6 }
-];
+interface RawInventoryData {
+  product_name: string;
+  stock_quantity: number;
+}
 
-export function InventoryLevel() {
+interface InventoryData {
+  productName: string;
+  stockQuantity: number;
+}
+
+interface InventoryLevelProps {
+  data: RawInventoryData[];
+}
+
+export function InventoryLevel({ data }: InventoryLevelProps) {
+  if (!data || data.length === 0) {
+    return <div>No inventory data available</div>;
+  }
+
+  const formattedData: InventoryData[] = data.map(item => ({
+    productName: item.product_name,
+    stockQuantity: item.stock_quantity
+  }));
+
   return (
     <div>
-        <Card className="sm:col-span-2">
+      <Card className="sm:col-span-2">
         <CardHeader>
-          <CardTitle>Inventory Levels by Product</CardTitle>
+          <CardTitle>Top Inventory Levels</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px]">
+          <div className="h-[350px] px-2">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={inventoryLevels}>
+              <BarChart
+                data={formattedData}
+                margin={{ top: 10, right: 30, left: 20, bottom: 80 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="productName" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="quantity" fill="#1a5654" />
+                <XAxis
+                  dataKey="productName"
+                  angle={-45}
+                  textAnchor="end"
+                  interval={0}
+                  height={60}
+                  style={{ fontSize: '12px' }}
+                />
+                <YAxis style={{ fontSize: '12px' }} />
+                <Tooltip
+                  wrapperStyle={{ fontSize: '13px' }}
+                  formatter={(value: number) => `${value} units`}
+                />
+                <Bar
+                  dataKey="stockQuantity"
+                  fill="#1a5654"
+                  radius={[4, 4, 0, 0]}
+                  barSize={40}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </CardContent>
       </Card>
     </div>
-  )}
+  );
+}

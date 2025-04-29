@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BarChart, TrendingUp, Boxes } from "lucide-react"; // Icons from shadcn/ui
 
@@ -33,7 +33,7 @@ const WelcomePage = () => {
 
         {/* Get Started Button */}
         <Link
-          href="/signup"
+          to="/login"
           className="inline-block bg-white text-[#001F3F] px-5 py-3 rounded-full text-base sm:text-lg font-semibold shadow-lg mt-6 sm:mt-8 hover:bg-gray-400 transition duration-300"
         >
           Get Started

@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link, useLocation } from 'react-router-dom'; // Import from react-router-dom
 import { cn } from '../lib/utils';
 import { Button } from '../components/ui/button';
 import {
   LayoutDashboard,
   ChartBar,
   ClipboardList,
-  Users,
-  Store,
   Bell,
-  Settings,
   HelpCircle,
   LogOut,
   Menu,
   Sun,
   Moon,
+  StoreIcon,
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../components/ui/sheet';
 import { useTheme } from '../providers/theme-provider';
@@ -22,16 +20,13 @@ import { useTheme } from '../providers/theme-provider';
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/home' },
   { icon: ChartBar, label: 'Forecasts', href: '/forecasts' },
-  { icon: Store, label: 'Connect Database', href: '/connect' },
   { icon: ClipboardList, label: 'Reports', href: '/reports' },
- // { icon: Users, label: 'Team', href: '/team' },
- // { icon: Store, label: 'My Store', href: '/store' },
   { icon: Bell, label: 'Notifications', href: '/notifications' },
-
+  { icon: StoreIcon, label: 'Database', href: '/database' },
 ];
 
 export function Sidebar() {
-  const [location] = useLocation();
+  const { pathname } = useLocation(); // Get the pathname directly from the Location object
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -46,12 +41,12 @@ export function Sidebar() {
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} to={item.href}> {/* Use 'to' from react-router-dom */}
               <Button
                 variant="ghost"
                 className={cn(
                   'w-full justify-start gap-4 text-gray-300 hover:text-white hover:bg-gray-800 mb-1',
-                  location === item.href && 'bg-gray-800 text-white'
+                  pathname === item.href && 'bg-gray-800 text-white' // Compare pathname directly
                 )}
                 onClick={() => setOpen(false)}
               >
