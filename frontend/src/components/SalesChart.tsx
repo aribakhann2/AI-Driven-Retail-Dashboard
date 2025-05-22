@@ -13,13 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select';
+
 
 // Type definition for a single weekly sales record
 interface WeeklySalesData {
@@ -46,16 +40,7 @@ export function SalesChart({ weeklySalesLast4Weeks = [] }: SalesChartProps) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Weekly Sales (Last 4 Weeks)</CardTitle>
-        <Select defaultValue="this-month">
-          <SelectTrigger className="w-36">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="this-month">This Month</SelectItem>
-            <SelectItem value="last-month">Last Month</SelectItem>
-            <SelectItem value="3-months">3 Months</SelectItem>
-          </SelectContent>
-        </Select>
+        
       </CardHeader>
       <CardContent>
         <div className="h-[300px]">
@@ -64,7 +49,16 @@ export function SalesChart({ weeklySalesLast4Weeks = [] }: SalesChartProps) {
               <LineChart data={transformedData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="week" />
-                <YAxis />
+                <YAxis
+  domain={([min, max]) => {
+    const padding = (max - min) * 0.2;
+    return [Math.floor(min - padding), Math.ceil(max + padding)];
+  }}
+  tickCount={6}
+  tickFormatter={(value) => `${Math.round(value)}`} // Optional for cleaner display
+/>
+
+
                 <Tooltip />
                 <Line type="monotone" dataKey="sales" stroke="#38bdf8" strokeWidth={2} />
               </LineChart>

@@ -112,16 +112,16 @@ export default function ForecastsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen  dark:bg-background ">
       <Navbar />
       <div className="p-8 lg:ml-72 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Forecasts</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Forecasts</h1>
 
         {/* Market Basket Section */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3 text-gray-700">Market Basket Analysis</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-700 dark:text-white">Market Basket Analysis</h2>
           <div className="flex items-center gap-4">
-            <label className="flex-1 flex items-center justify-between p-4 border-2 border-dashed rounded-lg bg-white shadow-sm hover:border-blue-400 transition cursor-pointer">
+            <label className="flex-1 flex items-center justify-between p-4 border-2 border-dashed rounded-lg bg-white shadow-sm hover:border-blue-400 transition cursor-pointer dark:bg-gray-100">
               {marketBasketFile ? (
                 <span className="text-gray-800">{marketBasketFile.name}</span>
               ) : marketBasketFilename ? (
@@ -155,9 +155,9 @@ export default function ForecastsPage() {
 
         {/* Sales Forecast Section */}
         <div>
-          <h2 className="text-xl font-semibold mb-3 text-gray-700">Sales Forecasting</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-700 dark:text-white">Sales Forecasting</h2>
           <div className="flex items-center gap-4">
-            <label className="flex-1 flex items-center justify-between p-4 border-2 border-dashed rounded-lg bg-white shadow-sm hover:border-blue-400 transition cursor-pointer">
+            <label className="flex-1 flex items-center justify-between p-4 border-2 border-dashed rounded-lg bg-white shadow-sm dark:text-white hover:border-blue-400 transition cursor-pointer dark:bg-gray-100">
               {salesForecastFile ? (
                 <span className="text-gray-800">{salesForecastFile.name}</span>
               ) : salesForecastFilename ? (

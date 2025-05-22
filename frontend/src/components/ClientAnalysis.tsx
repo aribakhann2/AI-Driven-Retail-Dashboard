@@ -32,7 +32,7 @@ export function ClientAnalysis({ genderDistribution }: ClientAnalysisProps) {
           ))}
         </div>
 
-        <div className="bg-sidebar rounded-lg p-6 text-black">
+        <div className="bg-sidebar rounded-lg p-6 text-black dark:text-white">
           <div className="flex items-center gap-2 mb-2">
             <UserIcon className="h-5 w-5" />
             <span>On average,</span>

@@ -26,32 +26,32 @@ const ReportPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <div className="p-8 lg:ml-72 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">Forecast Reports</h1>
+        <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-white">Forecast Reports</h1>
 
         {/* Sales Forecasting Report */}
         <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">Sales Forecasting</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-100">Sales Forecasting</h2>
           {reportData.sales_report ? (
             <a href={reportData.sales_report} target="_blank" rel="noopener noreferrer">
               <Button>Download Sales Report</Button>
             </a>
           ) : (
-            <p className="text-gray-500">No Sales Report available yet.</p>
+            <p className="text-gray-500 dark:text-gray-100">No Sales Report available yet.</p>
           )}
         </div>
 
         {/* Market Basket Report */}
         <div className="mb-10">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">Market Basket Analysis</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-100">Market Basket Analysis</h2>
           {reportData.mba_report ? (
             <a href={reportData.mba_report} target="_blank" rel="noopener noreferrer">
               <Button>Download Market Basket Report</Button>
             </a>
           ) : (
-            <p className="text-gray-500">No Market Basket Report available yet.</p>
+            <p className="text-gray-500 dark:text-gray-100">No Market Basket Report available yet.</p>
           )}
         </div>
       </div>

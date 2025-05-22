@@ -64,20 +64,20 @@ const DatabaseForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <div className="p-8 lg:ml-72 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Database Connection</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Database Connection</h1>
 
         {/* Connected Database Section */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3 text-gray-700">Connected Database</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-700 dark:text-gray-100">Connected Database</h2>
           <div className="flex items-center gap-4">
-            <div className="flex-1 p-4 border-2 border-dashed rounded-lg bg-white shadow-sm">
+            <div className="flex-1 p-4 border-2 border-dashed rounded-lg bg-background dark:border-gray-600 shadow-sm">
               {connectedDb ? (
                 <>
-                  <p className="text-gray-800">{connectedDb.connectionString}</p>
+                  <p className="bg-background border dark:border-gray-600 rounded shadow-sm text-gray-700 dark:text-gray-100">{connectedDb.connectionString}</p>
                   <Button
                     onClick={disconnectDatabase}
                     variant="ghost"
@@ -96,52 +96,52 @@ const DatabaseForm = () => {
 
         {/* Database Connection Form */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3 text-gray-700">Connect to Database</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-700 dark:text-gray-100">Connect to Database</h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-white p-6 rounded-lg shadow-md w-full"
+            className="bg-white p-6 rounded-lg shadow-md w-full dark:bg-background dark:border-white"
           >
             <div className="space-y-4">
               <div>
-                <label className="block text-gray-700 font-medium">Host</label>
+                <label className="block text-gray-700 font-medium dark:text-gray-100">Host</label>
                 <input
                   {...register("host", { required: true })}
                   type="text"
                   disabled={!!connectedDb}
-                  className="w-full p-2 border rounded"
+                  className="block w-full p-2  bg-background border dark:border-gray-600 rounded shadow-sm text-gray-700 dark:text-gray-100"
                   placeholder="Enter host"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium">User</label>
+                <label className="block text-gray-700 font-medium dark:text-gray-100">User</label>
                 <input
                   {...register("user", { required: true })}
                   type="text"
                   disabled={!!connectedDb}
-                  className="w-full p-2 border rounded"
+                  className="block w-full p-2  bg-background border dark:border-gray-600 rounded shadow-sm text-gray-700 dark:text-gray-100"
                   placeholder="Enter username"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium">Password</label>
+                <label className="block text-gray-700 font-medium dark:text-gray-100">Password</label>
                 <input
                   {...register("password", { required: true })}
                   type="password"
                   disabled={!!connectedDb}
-                  className="w-full p-2 border rounded"
+                  className="block w-full p-2  bg-background border dark:border-gray-600 rounded shadow-sm text-gray-700 dark:text-gray-100"
                   placeholder="Enter password"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium">Database</label>
+                <label className="block text-gray-700 font-medium dark:text-gray-100">Database</label>
                 <input
                   {...register("database", { required: true })}
                   type="text"
                   disabled={!!connectedDb}
-                  className="w-full p-2 border rounded"
+                 className="block w-full p-2  bg-background border dark:border-gray-600 rounded shadow-sm text-gray-700 dark:text-gray-100"
                   placeholder="Enter database name"
                 />
               </div>

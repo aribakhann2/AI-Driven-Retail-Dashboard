@@ -21,13 +21,15 @@ const WelcomePage = () => {
       >
         <h1 className="text-3xl sm:text-4xl font-extrabold mb-4">Welcome to AI-Driven Retail Dashboard</h1>
         <p className="text-base sm:text-lg font-medium opacity-80 mb-6 sm:mb-8">
-          Predict sales, optimize demand, and manage inventory with AI-driven analytics.
+          Predict sales, optimize product combinations, and manage inventory with AI-driven analytics.
         </p>
 
         {/* Feature Options */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 bg-white bg-opacity-10 rounded-lg p-4 sm:p-6">
-          <FeatureCard icon={BarChart} title="Predict Sales" />
-          <FeatureCard icon={TrendingUp} title="Predict Demand" />
+          <FeatureCard icon={TrendingUp} title="Predict Sales" />
+          {/*<FeatureCard icon={TrendingUp} title="Predict Demand" />*/}
+          <FeatureCard icon={BarChart} title="Market Basket Insights" />
+
           <FeatureCard icon={Boxes} title="Manage Inventory" />
         </div>
 

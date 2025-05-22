@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Import from react-router-dom
 import { cn } from '../lib/utils';
 import { Button } from '../components/ui/button';
+import { logoutUser } from '@/api/auth';
 import {
   LayoutDashboard,
   ChartBar,
@@ -16,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../components/ui/sheet';
 import { useTheme } from '../providers/theme-provider';
-
+import {useNavigate } from 'react-router-dom';
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/home' },
   { icon: ChartBar, label: 'Forecasts', href: '/forecasts' },
@@ -29,12 +30,17 @@ export function Sidebar() {
   const { pathname } = useLocation(); // Get the pathname directly from the Location object
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logoutUser();            // Clear localStorage
+    navigate("/login");      // Redirect to login
+  };
   const SidebarContent = () => (
     <div className="flex h-full flex-col gap-2">
       <div className="p-6">
         <h2 className="text-2xl font-bold text-white">Aromyxai</h2>
-        <p className="text-sm text-green-100/60">Industries</p>
+        {/*<p className="text-sm text-green-100/60">Industries</p>*/}
       </div>
 
       <div className="flex-1 px-4">
@@ -84,6 +90,7 @@ export function Sidebar() {
           Help
         </Button>
         <Button
+          onClick={handleLogout}
           variant="ghost"
           className="w-full justify-start gap-4 text-gray-300 hover:text-white hover:bg-gray-800"
         >

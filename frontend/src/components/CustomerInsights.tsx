@@ -51,7 +51,7 @@ export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: 
           <CardTitle>Lead Conversion Funnel</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px]">
+          <div className="h-[300px] mb-5">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie

@@ -1,5 +1,6 @@
 // services/authService.ts
 
+
 export interface AuthResponse {
     token: string;
     user?: {
@@ -55,5 +56,17 @@ export interface AuthResponse {
     }
   
     return data;
+  };
+  export const logoutUser = (): void => {
+    // Remove JWT and user info from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  
+    // Optionally: navigate to login or show a message
+    // e.g., window.location.href = "/login";
+    // or return a success indicator if used programmatically
+  
+    console.log("User logged out successfully.");
+    
   };
   

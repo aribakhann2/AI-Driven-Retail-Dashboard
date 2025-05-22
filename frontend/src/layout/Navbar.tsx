@@ -2,10 +2,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+ // DropdownMenuContent,
+ // DropdownMenuItem,
+  //DropdownMenuLabel,
+  //DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../components/ui/dropdown-menu';
 import { Sidebar } from './Sidebar';
@@ -29,7 +29,7 @@ export function Navbar() {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+           {/* <DropdownMenuContent align="end">
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium">Anna Katrina Marchesi</p>
@@ -40,7 +40,7 @@ export function Navbar() {
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
+            </DropdownMenuContent>*/}
           </DropdownMenu>
         </div>
       </div>
