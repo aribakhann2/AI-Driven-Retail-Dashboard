@@ -1,19 +1,33 @@
 # AI-Driven-Retail-Dashboard
 An intelligent and scalable retail analytics platform built to give real-time insights, predictions, and actionable intelligence to retailers. This platform enables seamless database integration, on-the-fly analytics, and AI-powered forecasting — all from a responsive web interface.
 
-## 🚀 Live Demo
-
-Coming soon...
-
----
-
-## 📸 Screenshots
-
-| Desktop View |
 ![Desktop View](./Screenshots/home.png)  
-| Mobile View |
-![Dark Mode](./Screenshots/mobile-dark.png) 
 
+## 🖼️ Project Gallery
+
+Here’s a visual overview of the key features and responsive design of the AI Driven Retail Dashboard.
+
+<p float="left" align="center">
+  <img src="./Screenshots/front.png" alt="Welcome Page" width="500"/>
+  <img src="./Screenshots/login.png" alt="Login Page" width="500"/>
+</p>
+
+<p float="left" align="center">
+  <img src="./Screenshots/home2.png" alt="Dashboard Desktop View" width="500"/>
+  <img src="./Screenshots/home3.png" alt="Dashboard home" width="500"/>
+</p>
+
+<p float="left" align="center">
+  <img src="./Screenshots/dark.png" alt="Dark Mode" width="500"/>
+  <img src="./Screenshots/dark2.png" alt="Dark Mode" width="500"/>
+</p>
+
+<p float="left" align="center">
+  <img src="./Screenshots/mobile-dark.png" alt="Upload Page" width="300"/>
+  <img src="./Screenshots/mobileDark2.png" alt="Notification" width="300"/>
+</p>
+
+- You can view all other screenshots in Screenshots folder.
 ## 📦 Features
 
 ### ✅ Real-time Inventory Dashboard
@@ -76,25 +90,6 @@ Coming soon...
 ---
 
 ---
-
-## 🖼️ Project Gallery
-
-Here’s a visual overview of the key features and responsive design of the AI Driven Retail Dashboard.
-
-<p float="left" align="center">
-  <img src="./Screenshots/front.png" alt="Welcome Page" width="300"/>
-  <img src="./Screenshots/login.png" alt="Login Page" width="300"/>
-</p>
-
-<p float="left" align="center">
-  <img src="./Screenshots/home2.png" alt="Dashboard Desktop View" width="300"/>
-  <img src="./Screenshots/home3.png" alt="Dashboard home" width="300"/>
-</p>
-
-<p float="left" align="center">
-  <img src="./Screenshots/dataset.png" alt="Upload Page" width="300"/>
-  <img src="./Screenshots/notifications.png.png" alt="Notification" width="300"/>
-</p>
 
 
 ## 🗂️ Project Structure
