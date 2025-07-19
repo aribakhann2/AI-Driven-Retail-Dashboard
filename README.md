@@ -9,8 +9,10 @@ Coming soon...
 
 ## 📸 Screenshots
 
-| Desktop View | 
-| ![Desktop View](./Screenshots/home.png) |  | ![Dark Mode](./Screenshots/dark.png) |
+| Desktop View |
+![Desktop View](./Screenshots/home.png)  
+| Mobile View |
+![Dark Mode](./Screenshots/mobile-dark.png) 
 
 ## 📦 Features
 
@@ -80,18 +82,18 @@ Coming soon...
 Here’s a visual overview of the key features and responsive design of the AI Driven Retail Dashboard.
 
 <p float="left" align="center">
-  <img src="./screenshots/front.png" alt="Welcome Page" width="300"/>
-  <img src="./screenshots/login.png" alt="Login Page" width="300"/>
+  <img src="./Screenshots/front.png" alt="Welcome Page" width="300"/>
+  <img src="./Screenshots/login.png" alt="Login Page" width="300"/>
 </p>
 
 <p float="left" align="center">
-  <img src="./screenshots/home2.png" alt="Dashboard Desktop View" width="300"/>
-  <img src="./screenshots/home3.png" alt="Dashboard home" width="300"/>
+  <img src="./Screenshots/home2.png" alt="Dashboard Desktop View" width="300"/>
+  <img src="./Screenshots/home3.png" alt="Dashboard home" width="300"/>
 </p>
 
 <p float="left" align="center">
-  <img src="./screenshots/dataset.png" alt="Upload Page" width="300"/>
-  <img src="./screenshots/notifications.png.png" alt="Notification" width="300"/>
+  <img src="./Screenshots/dataset.png" alt="Upload Page" width="300"/>
+  <img src="./Screenshots/notifications.png.png" alt="Notification" width="300"/>
 </p>
 
 
