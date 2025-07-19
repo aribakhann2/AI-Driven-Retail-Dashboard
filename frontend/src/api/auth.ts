@@ -69,4 +69,21 @@ export interface AuthResponse {
     console.log("User logged out successfully.");
     
   };
+  export const getUsername = async (): Promise<string> => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+  
+    const response = await fetch("http://localhost:5000/auth/username", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    
+    if (!response.ok) return "Guest";
+    const data = await response.json();
+    return data.name || "Guest";
+   
+  };
   

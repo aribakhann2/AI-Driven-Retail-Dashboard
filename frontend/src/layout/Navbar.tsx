@@ -19,7 +19,7 @@ export function Navbar() {
           <h1 className="text-2xl font-semibold">Dashboard</h1>
         </div>
         
-        <div className="ml-auto flex items-center gap-4">
+        {/*<div className="ml-auto flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -29,7 +29,7 @@ export function Navbar() {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-           {/* <DropdownMenuContent align="end">
+           <DropdownMenuContent align="end">
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium">Anna Katrina Marchesi</p>
@@ -40,9 +40,9 @@ export function Navbar() {
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>*/}
+            </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

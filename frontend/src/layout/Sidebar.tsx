@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Import from react-router-dom
 import { cn } from '../lib/utils';
 import { Button } from '../components/ui/button';
+import { useEffect } from 'react';
+import { getUsername } from '../api/auth';
 import { logoutUser } from '@/api/auth';
 import {
   LayoutDashboard,
   ChartBar,
   ClipboardList,
   Bell,
-  HelpCircle,
   LogOut,
   Menu,
   Sun,
@@ -25,13 +26,22 @@ const menuItems = [
   { icon: Bell, label: 'Notifications', href: '/notifications' },
   { icon: StoreIcon, label: 'Database', href: '/database' },
 ];
-
 export function Sidebar() {
   const { pathname } = useLocation(); // Get the pathname directly from the Location object
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
-
+  const [username, setUsername] = useState("Guest");
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const name = await getUsername();
+      setUsername(name);
+      console.log(username)
+    };
+  
+    fetchUsername();
+  }, []);
+  
   const handleLogout = () => {
     logoutUser();            // Clear localStorage
     navigate("/login");      // Redirect to login
@@ -39,7 +49,7 @@ export function Sidebar() {
   const SidebarContent = () => (
     <div className="flex h-full flex-col gap-2">
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-white">Aromyxai</h2>
+        <h2 className="text-2xl font-bold text-white">{username}</h2>
         {/*<p className="text-sm text-green-100/60">Industries</p>*/}
       </div>
 
@@ -82,13 +92,13 @@ export function Sidebar() {
             </>
           )}
         </Button>
-        <Button
+       {/* <Button
           variant="ghost"
           className="w-full justify-start gap-4 text-gray-300 hover:text-white hover:bg-gray-800"
         >
           <HelpCircle className="h-5 w-5" />
           Help
-        </Button>
+        </Button>*/}
         <Button
           onClick={handleLogout}
           variant="ghost"
@@ -113,12 +123,15 @@ export function Sidebar() {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-72 bg-gray-900 p-0 border-r border-gray-800">
+        <SheetContent side="left" className="w-52 xl:w-72 bg-gray-900 p-0 border-r border-gray-800">
+
           <SidebarContent />
         </SheetContent>
       </Sheet>
 
-      <div className="hidden lg:block h-screen w-72 bg-gray-900 fixed left-0 top-0 border-r border-gray-800">
+      <div className="hidden lg:block h-screen w-52 xl:w-72 bg-gray-900 fixed left-0 top-0 z-50 border-r border-gray-800">
+
+
         <SidebarContent />
       </div>
     </>

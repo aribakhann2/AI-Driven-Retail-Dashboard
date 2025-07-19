@@ -37,26 +37,46 @@ export function SalesChart({ weeklySalesLast4Weeks = [] }: SalesChartProps) {
   const hasData = transformedData.length > 0;
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+    <Card className='h-full'>
+      <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <CardTitle>Weekly Sales (Last 4 Weeks)</CardTitle>
-        
+        <p className='min-[321px]:hidden '>Use bigger screens to see sales chart</p>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
+        <div className="h-[250px] sm:h-[300px] md:h-[300px] hidden min-[321px]:block">
           {hasData ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={transformedData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="week" />
+                <XAxis dataKey="week tick={{ fontSize: 10 }} " />
                 <YAxis
   domain={([min, max]) => {
     const padding = (max - min) * 0.2;
     return [Math.floor(min - padding), Math.ceil(max + padding)];
   }}
   tickCount={6}
-  tickFormatter={(value) => `${Math.round(value)}`} // Optional for cleaner display
+  tick={(props) => {
+    const { x, y, payload } = props;
+    const isMobile = window.innerWidth < 640;
+
+    return (
+      <text
+        x={x}
+        y={y}
+        dx={-10}
+        dy={5}
+        fontSize={isMobile ? 10 : 12}
+        transform={isMobile ? `rotate(-45, ${x}, ${y})` : undefined}
+        textAnchor="end"
+        fill="#888"
+      >
+        {Math.round(payload.value)}
+      </text>
+    );
+  }}
 />
+
+
 
 
                 <Tooltip />

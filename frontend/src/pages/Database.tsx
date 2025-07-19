@@ -67,7 +67,7 @@ const DatabaseForm = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="p-8 lg:ml-72 max-w-4xl mx-auto">
+      <div className="p-8 lg:ml-52 xl:ml-72 max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Database Connection</h1>
 
         {/* Connected Database Section */}

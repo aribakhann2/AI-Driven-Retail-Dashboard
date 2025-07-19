@@ -28,7 +28,7 @@ const ReportPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="p-8 lg:ml-72 max-w-4xl mx-auto">
+      <div className="p-8 lg:ml-52 xl:ml-72 max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-gray-800 dark:text-white">Forecast Reports</h1>
 
         {/* Sales Forecasting Report */}

@@ -9,9 +9,10 @@ import {
   Pie,
   Cell,
   BarChart,
-  Bar
+  Bar,
+  LabelList
 } from 'recharts';
-
+import { useState, useEffect } from 'react';
 interface SocialEngagementData {
   platform: string;
   total_engagement_score: string;
@@ -29,7 +30,7 @@ interface CustomerInsightsProps {
   leadBreakdown?: LeadBreakdownData[];
 }
 
-const COLORS = ['#1a5654', '#abff91', '#5cd95b'];
+const COLORS = ['#5cd95b', '#abff91', '#1a5654'];
 
 export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: CustomerInsightsProps) {
   const conversionData = [
@@ -42,16 +43,30 @@ export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: 
     platform: platform.platform,
     engagement: parseInt(platform.total_engagement_score || '0')
   }));
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 1025); // Tailwind's sm breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2 items-stretch">
+
       {/* Lead Conversion Funnel */}
-      <Card>
+      <Card className="w-full max-w-full">
+
+
         <CardHeader>
           <CardTitle>Lead Conversion Funnel</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px] mb-5">
+        <div className="w-full h-[300px]">
+
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -72,7 +87,7 @@ export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: 
             </ResponsiveContainer>
             <div className="flex justify-center gap-4 text-sm mt-2">
               {conversionData.map((entry, index) => (
-                <div key={entry.name} className="flex items-center gap-2">
+                <div key={entry.name} className="flex items-center gap-2 xs:mb-9">
                   <div
                     className="h-3 w-3 rounded-full"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
@@ -86,27 +101,34 @@ export function CustomerInsights({ socialEngagement = [], leadBreakdown = [] }: 
       </Card>
 
       {/* Social Media Engagement */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Social Media Engagement</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={platformEngagementData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="platform" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="engagement" fill="#1a5654" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+      <Card className="h-full w-full">
+
+      <CardHeader>
+        <CardTitle>Social Media Engagement</CardTitle>
+      </CardHeader>
+      <CardContent>
+      <div className="h-[300px] mb-5">
+
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={platformEngagementData}
+              margin={{ top: 20, right: 30, left: isSmallScreen ? 0 : 0, bottom: 5 }}
+              
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="platform" tick={isSmallScreen ? false : undefined} />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="engagement" fill="#1a5654">
+                {isSmallScreen && (
+                  <LabelList dataKey="platform" position="insideTop" fill="white" fontSize={10} />
+                )}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
     </div>
   );
 }

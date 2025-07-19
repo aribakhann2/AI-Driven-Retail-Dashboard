@@ -26,17 +26,18 @@ export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
   const handleUpdateInventory = () => {
     if (!productName || !stockLevel) return;
 
-    axios.post('http://localhost:5000/api/db/update-stock', {
-      productName,
-      newQuantity: Number(stockLevel),
-    })
+    axios
+      .post('http://localhost:5000/api/db/update-stock', {
+        productName,
+        newQuantity: Number(stockLevel),
+      })
       .then(() => {
         setIsDialogOpen(false);
         setIsSuccessDialogOpen(true);
         setStockLevel('');
         setProductName('');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error updating inventory:', error);
         setIsDialogOpen(false);
         setIsErrorDialogOpen(true);
@@ -49,8 +50,8 @@ export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
   const outOfStock = inventoryData?.out_of_stock ?? 0;
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+    <Card className="w-full h-full">
+      <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between ">
         <CardTitle>Inventory Overview</CardTitle>
         <Button onClick={() => setIsDialogOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
@@ -58,22 +59,22 @@ export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
         </Button>
       </CardHeader>
 
-      <CardContent>
-        <div className="grid gap-4 md:grid-cols-3">
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">Total Stock Items</p>
-            <p className="text-2xl font-bold text-primary">{totalProducts}</p>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">Low Stock Items</p>
-            <p className="text-2xl font-bold text-yellow-500">{lowStock}</p>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">Out of Stock</p>
-            <p className="text-2xl font-bold text-red-500">{outOfStock}</p>
-          </div>
-        </div>
-      </CardContent>
+      <CardContent className="px-2 pb-3">
+  <div className="grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-3">
+    <div className="flex flex-col justify-between h-full p-2">
+      <p className="text-xs sm:text-sm font-medium text-muted-foreground">Total Stock Items</p>
+      <p className="text-xl sm:text-2xl font-bold text-primary mt-1">{totalProducts}</p>
+    </div>
+    <div className="flex flex-col justify-between h-full p-2">
+      <p className="text-xs sm:text-sm font-medium text-muted-foreground">Low Stock Items</p>
+      <p className="text-xl sm:text-2xl font-bold text-yellow-500 mt-1">{lowStock}</p>
+    </div>
+    <div className="flex flex-col justify-between h-full p-2">
+      <p className="text-xs sm:text-sm font-medium text-muted-foreground">Out of Stock</p>
+      <p className="text-xl sm:text-2xl font-bold text-red-500 mt-1">{outOfStock}</p>
+    </div>
+  </div>
+</CardContent>
 
       {/* Inventory Update Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -108,7 +109,9 @@ export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
           <DialogHeader>
             <DialogTitle>Inventory Updated</DialogTitle>
           </DialogHeader>
-          <p className="text-center text-green-600">The inventory has been successfully updated!</p>
+          <p className="text-center text-green-600">
+            The inventory has been successfully updated!
+          </p>
           <Button className="w-full" onClick={() => setIsSuccessDialogOpen(false)}>
             OK
           </Button>
@@ -121,13 +124,14 @@ export function InventoryOverview({ data = [] }: InventoryOverviewProps) {
           <DialogHeader>
             <DialogTitle>Update Failed</DialogTitle>
           </DialogHeader>
-          <p className="text-center text-red-600">There was an error updating the inventory. Please try again.</p>
+          <p className="text-center text-red-600">
+            There was an error updating the inventory. Please try again.
+          </p>
           <Button className="w-full" onClick={() => setIsErrorDialogOpen(false)}>
             OK
           </Button>
         </DialogContent>
       </Dialog>
-
     </Card>
   );
 }

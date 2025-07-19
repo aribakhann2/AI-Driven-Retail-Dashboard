@@ -39,6 +39,7 @@ function App() {
         const value = localStorage.getItem(key);
         const parsed = JSON.parse(value || "");
         if (Array.isArray(parsed)) storedData[key] = parsed;
+       // console.log(parsed)
       } catch {}
     });
     setQueryData(storedData);
