@@ -9,13 +9,8 @@ Coming soon...
 
 ## 📸 Screenshots
 
-| Desktop View | Dark Mode |
-|--------------|-------------|-----------|
+| Desktop View | 
 | ![Desktop View](./Screenshots/home.png) |  | ![Dark Mode](./Screenshots/dark.png) |
-
-> Replace these image links with actual URLs or relative paths in your repo.
-
----
 
 ## 📦 Features
 
